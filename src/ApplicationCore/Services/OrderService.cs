@@ -66,14 +66,4 @@ public class OrderService : IOrderService
 
         await _orderDeliveryService.Process(order);
     }
-
-    private async Task ReserveOrderItemsAsync(IList<OrderItem> orderItems)
-    {
-        var httpClient = new HttpClient();
-        httpClient.DefaultRequestHeaders.Add("x-functions-key", "R9yIRRBOPqGzlIrt9gSfBRrZdiBpykluxpTuCuzayDx4kau4aW8KBg==");
-
-        var response = await httpClient.PostAsync("https://orderitemsreserver-io.azurewebsites.net/api/ReserveOrderItemsFunction", JsonContent.Create(orderItems));
-
-        _logger.LogInformation($"Reserve order items response status code: {response.StatusCode}");
-    }
 }
